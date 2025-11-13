@@ -1,0 +1,17 @@
+{
+  "diagnostics.disable": ["undefined-global", "lowercase-global"],
+  "runtime.nonstandardSymbol": [
+    "!=",
+    "+=",
+    "-=",
+    "*=",
+    "/=",
+    "%=",
+    "^=",
+    "|=",
+    "&=",
+    "<<=",
+    ">>=",
+    "//"
+  ]
+}
