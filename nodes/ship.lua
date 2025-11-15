@@ -54,6 +54,8 @@ function ship:update()
 end
 
 function ship:draw()
+    print(self.y, self.x, self.y + 16)
+    print(self.dy, self.x, self.y + 24)
     for p in all(self.pods) do
         p:draw()
     end

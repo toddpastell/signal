@@ -27,9 +27,3 @@ function pod:draw()
     self.wake:draw()
     spr(17, self.x, self.y)
 end
-
--- function pod:maybe_spawn_wakes(dx, dy)
---     if rnd() > 0.5 then return end
---     self.wake:spawn(self.pod_1.x, self.pod_1.y, 3, rnd(2) - 1)
---     self.wake:spawn(self.pod_2.x, self.pod_2.y, 3, rnd(2) - 1)
--- end
