@@ -20,6 +20,7 @@ function layer:update(eye)
 end
 
 function layer:draw()
+    camera(self.x, self.y)
     for n in all(self.nodes) do
         n:draw(self)
     end
