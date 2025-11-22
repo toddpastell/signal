@@ -31,7 +31,7 @@ function emitter:spawn(x, y, dx, dy)
         dx = dx,
         dy = dy,
         life = 20,
-        sp = 48,
+        sp = 32,
     }
     add(self.particles, p)
 end

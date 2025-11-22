@@ -14,17 +14,32 @@ function ship:new(x, y)
         pods = {
             pod:new(8),
             pod:new(-8),
+            pod_w:new(14),
         },
-        ctrl = controls:new(),
     }
     return setmetatable(tbl, self)
 end
 
-function ship:update()
+function ship:update(aim)
     self.ddx = 0
     self.ddy = 0
 
-    self.ctrl:update(self)
+    if btn(0) then
+        self.ddx = -0.1
+        self.rot_tar = 0.25
+    end
+    if btn(1) then
+        self.ddx = 0.1
+        self.rot_tar = 0.75
+    end
+    if btn(2) then
+        self.ddy = -0.1
+        self.rot_tar = 0
+    end
+    if btn(3) then
+        self.ddy = 0.1
+        self.rot_tar = 0.5
+    end
 
     self.dx += self.ddx
     self.dy += self.ddy
@@ -34,7 +49,7 @@ function ship:update()
     self.rot = lerp(self.rot, self.rot_tar, 0.2)
 
     for p in all(self.pods) do
-        p:update(self)
+        p:update(self, aim)
     end
 end
 

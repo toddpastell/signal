@@ -1,9 +1,9 @@
 local layer = {}
 layer.__index = layer
 
-function layer:new(t)
+function layer:new(r)
     local tbl = {
-        t = t,
+        r = r,
         x = 0,
         y = 0,
         nodes = {},
@@ -12,10 +12,10 @@ function layer:new(t)
 end
 
 function layer:update(eye)
-    self.x = flr(eye.x * self.t)
-    self.y = flr(eye.y * self.t)
+    self.x = flr(eye.x * self.r)
+    self.y = flr(eye.y * self.r)
     for n in all(self.nodes) do
-        n:update()
+        n:update(self)
     end
 end
 
