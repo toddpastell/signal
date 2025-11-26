@@ -8,10 +8,11 @@ function game:new()
     tbl.ctrl = controls:new()
     tbl.p1 = ship:new()
     tbl.nodes = {}
-    for i = 1, 10 do
+    for i = 1, 2 do
         local n = enemy:new(rnd(128), rnd(128))
         add(tbl.nodes, n)
     end
+    add(tbl.nodes, beacon:new(rnd(128), rnd(128)))
     local l1 = layer:new(0.01)
     for i = 1, 10 do
         local n = star:new(rnd(128), rnd(128), 1)
@@ -49,8 +50,6 @@ function game:update()
     -- if d >= 256 then d = 32 end
 end
 
-d = 64
-
 function game:draw()
     cls()
     for l in all(self.layers) do
@@ -61,14 +60,6 @@ function game:draw()
         n:draw()
     end
     self.p1:draw()
-
-
-    -- todo remove
-    d -= 1
-    circ(96, 64, d, 3)
-    circ(96, 64, d - 8, 11)
-    circ(96, 64, d - 16, 3)
-    circ(96, 64, d - 24, 11)
 
     spr(48, self.aim.x, self.aim.y)
 

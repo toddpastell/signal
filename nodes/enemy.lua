@@ -32,8 +32,12 @@ function enemy:update(ship)
     self.dy += self.ddy
     self.x += self.dx
     self.y += self.dy
+
+    if collide(self.x, self.y, 8, 8, ship.x, ship.y, 8, 8) then
+        -- stop("die")
+    end
 end
 
 function enemy:draw()
-    spr(19, self.x, self.y)
+    spr(24, self.x, self.y)
 end
