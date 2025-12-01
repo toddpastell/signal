@@ -9,8 +9,10 @@ function enemy:new(x, y)
         dy = 0,
         ddx = 0,
         ddy = 0,
+        vmax = 1.2,
         t = rnd(30),
         tmax = 30,
+        mask = 0b1,
     }
     return setmetatable(tbl, self)
 end
@@ -23,8 +25,10 @@ function enemy:update(ship)
     if (self.t > self.tmax) then
         self.t = 0
         local a = atan2(ship.x - self.x, ship.y - self.y)
-        self.dx = 2 * cos(a)
-        self.dy = 2 * sin(a)
+        self.dx = self.vmax * cos(a)
+        self.dy = self.vmax * sin(a)
+        local d = distance(self.x, self.y, ship.x, ship.y)
+        if d > 256 then self.dead = true end
     end
     self.t += 1
 
@@ -33,8 +37,8 @@ function enemy:update(ship)
     self.x += self.dx
     self.y += self.dy
 
-    if collide(self.x, self.y, 8, 8, ship.x, ship.y, 8, 8) then
-        -- stop("die")
+    if not ship.dead and collide(self.x, self.y, 8, 8, ship.x, ship.y, 8, 8) then
+        scene.current.die()
     end
 end
 

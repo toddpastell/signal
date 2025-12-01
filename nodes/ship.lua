@@ -9,13 +9,14 @@ function ship:new(x, y)
         dy = 0,
         ddx = 0,
         ddy = 0,
+        vmax = 1,
         rot = 0,
         rot_tar = 0,
         pods = {
             pod:new(8),
             pod:new(-8),
-            pod_w:new(14),
         },
+        ping = nil,
     }
     return setmetatable(tbl, self)
 end
@@ -41,12 +42,17 @@ function ship:update(aim)
         self.rot_tar = 0.5
     end
 
-    self.dx += self.ddx
-    self.dy += self.ddy
+    self.dx = mid(self.dx + self.ddx, -self.vmax, self.vmax)
+    self.dy = mid(self.dy + self.ddy, -self.vmax, self.vmax)
     self.x += self.dx
     self.y += self.dy
 
     self.rot = lerp(self.rot, self.rot_tar, 0.2)
+
+    if self.ping then
+        self.ping.r += 16
+        if self.ping.r > 128 then self.ping = nil end
+    end
 
     for p in all(self.pods) do
         p:update(self, aim)
@@ -54,6 +60,9 @@ function ship:update(aim)
 end
 
 function ship:draw()
+    if self.ping then
+        draw_waves(self.x, self.y, self.ping.r)
+    end
     for p in all(self.pods) do
         p:draw()
     end
